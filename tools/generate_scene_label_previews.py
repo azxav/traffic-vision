@@ -164,7 +164,7 @@ def main() -> None:
 
     page = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WIUT Scene Labels — Single-label previews</title>
+<title>traffic-vision scene labels — single-label previews</title>
 <style>
 body{margin:0;background:#11151b;color:#edf1f5;font:16px/1.45 system-ui,sans-serif}
 header{position:sticky;top:0;background:#1b222b;padding:18px 24px;z-index:2;border-bottom:1px solid #36404c}
@@ -173,7 +173,7 @@ main{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:2
 article{background:#1b222b;border:1px solid #36404c;border-radius:10px;padding:14px;overflow:hidden}
 h2{font-size:17px;margin:0 0 4px}article p{font-size:13px;color:#b7c0cb;min-height:36px;margin:0 0 10px}
 img{display:block;width:100%;height:auto;border-radius:5px;background:#080a0d}
-</style></head><body><header><h1>WIUT scene labels — one label per image</h1>
+</style></head><body><header><h1>traffic-vision scene labels — one label per image</h1>
 <p>Geometry synced from CVAT task #2623023; coordinates use the 1920×1080 reference image. Click an image to open it full size.</p></header>
 <main>""" + "\n".join(cards) + "</main></body></html>"
     (OUTPUT_DIR / "index.html").write_text(page, encoding="utf-8")

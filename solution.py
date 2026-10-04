@@ -1,5 +1,5 @@
 """
-solution.py — the ONLY file a team has to implement.
+solution.py — harness entry point for traffic-vision.
 
 The organizers' harness (run_submission.py) imports this module and calls:
 

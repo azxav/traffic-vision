@@ -7,41 +7,17 @@ const CLASS_COLOR = {
   jaywalking: '#a48be4', stop_line: '#d7bc71',
 };
 const NAV = [
-  ['Team', 'team'], ['Approach', 'approach'], ['EDA', 'eda'],
+  ['Author', 'author'], ['Approach', 'approach'], ['EDA', 'eda'],
   ['Results', 'results'], ['Report', 'report'], ['Links', 'links'], ['Demo', 'demo'],
 ];
-const TEAM_MEMBERS = [
-  {
-    name: 'Azizbek Xasanov',
-    initials: 'AX',
-    role: 'Scene & labels',
-    responsibility: 'Scene-map and CVAT review, event-label QA, and release documentation.',
-    profiles: [
-      ['LinkedIn', 'https://www.linkedin.com/in/azizbek-xasanov/'],
-      ['GitHub', 'https://github.com/azxav'],
-    ],
-  },
-  {
-    name: 'Dilyorbek Muhammadjonov',
-    initials: 'DI',
-    role: 'Computer vision · detection',
-    responsibility: 'Own detection, tracking, and Part A event rules; review speed and reproducibility.',
-    profiles: [
-      ['LinkedIn', 'https://www.linkedin.com/in/dilyor/'],
-      ['GitHub', 'https://github.com/dilyorm'],
-    ],
-  },
-  {
-    name: 'Davlat Mahmudov',
-    initials: 'DM',
-    role: 'Evaluation · risk & delivery',
-    responsibility: 'Own metric review, Part B risk assessment, and website/demo preparation and delivery.',
-    profiles: [
-      ['LinkedIn', 'https://www.linkedin.com/in/davlatbek-makhmudov'],
-      ['GitHub', 'https://github.com/likealiens'],
-    ],
-  },
-];
+const AUTHOR = {
+  name: 'Azizbek Xasanov',
+  initials: 'AX',
+  profiles: [
+    ['LinkedIn', 'https://www.linkedin.com/in/azizbek-xasanov/'],
+    ['GitHub', 'https://github.com/azxav'],
+  ],
+};
 const API_PATH = '/api';
 
 function timeLabel(seconds) {
@@ -58,9 +34,9 @@ function SectionTitle({ title, description, number }) {
 
 function Topbar({ active }) {
   return <header className="topbar">
-    <a className="brand" href="#overview" aria-label="ICEBERG traffic event detection overview">
-      <span className="brand-mark">ICEBERG</span><span className="brand-divider" />
-      <span className="brand-name">Traffic Events</span>
+    <a className="brand" href="#overview" aria-label="traffic-vision overview">
+      <span className="brand-mark">traffic-vision</span><span className="brand-divider" />
+      <span className="brand-name">Events</span>
     </a>
     <nav aria-label="Main navigation">
       {NAV.map(([name, id]) => <a className={active === id ? 'active' : ''} href={`#${id}`} key={id}>{name}</a>)}
@@ -207,21 +183,19 @@ function Overview({ data, selectedVideo, setSelectedVideo, onSeek }) {
   </section>;
 }
 
-function TeamSection() {
-  return <section id="team" className="text-section section-rule">
-    <SectionTitle number="01" title="Team" description="ICEBERG · Traffic event detection project." />
+function AuthorSection() {
+  return <section id="author" className="text-section section-rule">
+    <SectionTitle number="01" title="Author" description="traffic-vision" />
     <div className="team-intro">
-      <div><span className="team-kicker">ASSIGNED WORKSTREAMS</span><h3>Three owners, one submission.</h3></div>
-      <p>Responsibilities are split across scene and annotation review, computer vision, and evaluation and delivery.</p>
+      <div><span className="team-kicker">PROJECT</span><h3>{AUTHOR.name}</h3></div>
+      <p>I built the detector, tracker integration, scene map, event rules, risk baseline, and this demo.</p>
     </div>
-    <div className="team-grid">{TEAM_MEMBERS.map((member, index) => <article className="team-card" key={member.name}>
-      <div className="team-card-meta"><span>{String(index + 1).padStart(2, '0')} / ICEBERG</span><span className="team-initials">{member.initials}</span></div>
-      <p className="team-role">{member.role}</p>
-      <h3>{member.name}</h3>
-      <p className="team-responsibility">{member.responsibility}</p>
-      <div className="team-links">{member.profiles.length ? member.profiles.map(([label, url]) => <a href={url} key={label} target="_blank" rel="noreferrer" aria-label={`${member.name} on ${label}`}>{label}<span aria-hidden="true"> ↗</span></a>) : <span className="profile-note">Profile links not provided</span>}</div>
-    </article>)}</div>
-    <p className="team-note">Workstream ownership is assigned for this submission. Only profile links supplied by the team are shown.</p>
+    <div className="team-grid"><article className="team-card">
+      <div className="team-card-meta"><span>traffic-vision</span><span className="team-initials">{AUTHOR.initials}</span></div>
+      <h3>{AUTHOR.name}</h3>
+      <p className="team-responsibility">Fixed-camera traffic event detection with YOLO11s, ByteTrack, and junction rules.</p>
+      <div className="team-links">{AUTHOR.profiles.map(([label, url]) => <a href={url} key={label} target="_blank" rel="noreferrer" aria-label={`${AUTHOR.name} on ${label}`}>{label}<span aria-hidden="true"> ↗</span></a>)}</div>
+    </article></div>
   </section>;
 }
 
@@ -229,7 +203,7 @@ function ApproachSection({ data }) {
   return <section id="approach" className="section-block section-rule">
     <SectionTitle number="02" title="Approach" description="A fixed-camera pipeline, calibrated against the junction and reviewed event intervals." />
     <div className="approach-grid">
-      <div className="approach-copy"><h3>From pixels to time-localized events</h3><p>We register the scene map to the first frame, track road users with YOLO11s and ByteTrack, and derive motion, lane, crosswalk, queue, and signal features. Temporal rules turn those features into event intervals.</p><p>The sample labels are a manually reviewed development set. They support rule review and threshold selection; they are not a held-out test set.</p><a className="text-link" href="#eda">See the scene and data <b>→</b></a></div>
+      <div className="approach-copy"><h3>From pixels to time-localized events</h3><p>The pipeline registers the scene map to the first frame, tracks road users with YOLO11s and ByteTrack, and derives motion, lane, crosswalk, queue, and signal features. Temporal rules turn those features into event intervals.</p><p>The sample labels are a manually reviewed development set. They support rule review and threshold selection; they are not a held-out test set.</p><a className="text-link" href="#eda">See the scene and data <b>→</b></a></div>
       <ol className="approach-steps">
         <li><span>01</span><div><strong>Register</strong><p>Align the hand-mapped road, lanes, crossings, stop line, and signal ROI.</p></div></li>
         <li><span>02</span><div><strong>Track</strong><p>Follow vehicles and pedestrians; smooth positions and estimate movement.</p></div></li>
@@ -396,7 +370,7 @@ function ReportSection({ data }) {
 function LinksSection() {
   return <section id="links" className="section-block section-rule links-section">
     <SectionTitle number="06" title="Project links" description="Code and reproducibility files for review." />
-    <div className="link-list"><a href="https://github.com/azxav/WIUT_ICEBERG" target="_blank" rel="noreferrer"><span>Source repository</span><b>Open GitHub ↗</b></a><a href="/predictions_samples.json" target="_blank" rel="noreferrer"><span>Sample predictions</span><b>Open JSON ↗</b></a><a href="/weights/yolo11s.pt" download><span>YOLO11s weights</span><b>Download ↗</b></a><a href="/README.md" target="_blank" rel="noreferrer"><span>Method and run instructions</span><b>Read README ↗</b></a><a href="#team"><span>ICEBERG team profiles</span><b>View team ↗</b></a></div>
+    <div className="link-list"><a href="https://github.com/azxav/traffic-vision" target="_blank" rel="noreferrer"><span>Source repository</span><b>Open GitHub ↗</b></a><a href="/predictions_samples.json" target="_blank" rel="noreferrer"><span>Sample predictions</span><b>Open JSON ↗</b></a><a href="/weights/yolo11s.pt" download><span>YOLO11s weights</span><b>Download ↗</b></a><a href="/README.md" target="_blank" rel="noreferrer"><span>Method and run instructions</span><b>Read README ↗</b></a><a href="#author"><span>Author</span><b>Azizbek Xasanov ↗</b></a></div>
     <p className="license-note">Model and repository licensing: AGPL-3.0. Sample-video rights remain with their source owners.</p>
   </section>;
 }
@@ -417,7 +391,7 @@ export default function App() {
     <Topbar active={active} />
     <main className="page-shell">
       <Overview data={data} selectedVideo={selectedVideo} setSelectedVideo={setSelectedVideo} />
-      <TeamSection />
+      <AuthorSection />
       <ApproachSection data={data} />
       <EdaSection data={data} />
       <ResultsSection data={data} selectedVideo={selectedVideo} setSelectedVideo={setSelectedVideo} />
@@ -425,6 +399,6 @@ export default function App() {
       <LinksSection />
       <DemoSection />
     </main>
-    <footer className="footer"><span>ICEBERG · Traffic Event Detection</span><a href="#overview">Back to top ↑</a></footer>
+    <footer className="footer"><span>traffic-vision · Azizbek Xasanov</span><a href="#overview">Back to top ↑</a></footer>
   </>;
 }

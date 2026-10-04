@@ -29,7 +29,7 @@ jobs: dict[str, dict] = {}
 job_lock = threading.Lock()
 executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="traffic-demo")
 
-app = FastAPI(title="ICEBERG Traffic Event Demo", version="1.0.0")
+app = FastAPI(title="traffic-vision demo", version="1.0.0")
 
 
 def _video_info(path: Path) -> tuple[float, float, int, int]:
@@ -151,7 +151,7 @@ async def create_job(file: UploadFile = File(...)) -> dict:
     _cleanup_old_jobs()
     if Path(file.filename or "").suffix.lower() != ".mp4":
         raise HTTPException(status_code=400, detail="Upload an MP4 file.")
-    workdir = Path(tempfile.mkdtemp(prefix="iceberg-demo-"))
+    workdir = Path(tempfile.mkdtemp(prefix="traffic-vision-"))
     original = workdir / "upload.mp4"
     total = 0
     try:

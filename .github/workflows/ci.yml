@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint-and-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Ruff
+        run: python -m pip install ruff
+      - name: Lint
+        run: ruff check
+      - name: Smoke
+        run: |
+          python -m unittest tests.test_segments -v
+          python evaluate.py --pred predictions_samples.json --validate-only
+          python evaluate.py --pred examples/predictions.json --gt examples/ground_truth.json
