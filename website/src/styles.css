@@ -88,7 +88,7 @@ select { background: var(--surface-2); color: var(--text); border: 1px solid var
 .team-kicker { color: var(--cyan); font-size: 9px; letter-spacing: .12em; }
 .team-intro h3 { margin: 8px 0 0; font-size: clamp(19px, 2vw, 25px); letter-spacing: -.03em; }
 .team-intro > p { max-width: 430px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
-.team-grid { margin-left: 38px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.team-grid { margin-left: 38px; display: grid; grid-template-columns: minmax(0, 420px); gap: 12px; }
 .team-card { min-width: 0; min-height: 242px; padding: 18px; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); }
 .team-card-meta { display: flex; align-items: center; justify-content: space-between; color: var(--quiet); font-size: 9px; letter-spacing: .08em; }
 .team-initials { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid var(--line); color: var(--cyan); font-size: 10px; letter-spacing: 0; }

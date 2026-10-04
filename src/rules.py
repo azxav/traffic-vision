@@ -8,7 +8,7 @@ from typing import Iterable, Mapping
 import numpy as np
 import pandas as pd
 
-from .features import VEHICLE_CLASSES, _inside, _inside_many
+from .features import VEHICLE_CLASSES, _inside_many, signed_distance_to_polyline
 from .segments import merge_events, merge_intervals
 
 
@@ -283,7 +283,6 @@ def _red_and_stopline(
     config: RuleConfig,
 ) -> list[list]:
     line = scene.get("stop_lines", {}).get("near", {}).get("line", [])
-    direction = scene.get("carriageways", {}).get("near", {}).get("direction", [0.92, 0.39])
     if not line:
         return []
     output: list[list] = []
